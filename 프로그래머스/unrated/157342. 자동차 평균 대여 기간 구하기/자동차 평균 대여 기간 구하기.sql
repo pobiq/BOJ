@@ -1,0 +1,9 @@
+-- 코드를 입력하세요
+
+select sub.CAR_ID, sub.AVERAGE_DURATION
+from
+(SELECT CAR_ID, ROUND(avg(DATEDIFF(END_DATE, START_DATE) + 1), 1) as AVERAGE_DURATION
+from CAR_RENTAL_COMPANY_RENTAL_HISTORY
+group by CAR_ID) sub
+where sub.AVERAGE_DURATION > 7
+order by sub.AVERAGE_DURATION desc, sub.CAR_ID desc;

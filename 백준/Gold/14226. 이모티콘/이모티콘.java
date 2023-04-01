@@ -23,7 +23,7 @@ public class Main {
 	}
 	
 	static int S;
-    static boolean[][] visited = new boolean[2001][2001];
+    static boolean[][] visited = new boolean[1001][1001];
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,7 +56,7 @@ public class Main {
             	return;
             }
             
-            if(e_num > 0 && e_num < 2000) {
+            if(e_num > 0 && e_num <= 1000) {
             	// 1. 저장
             	if(!visited[e_num][e_num]) {
             		visited[e_num][e_num] = true;
@@ -70,7 +70,7 @@ public class Main {
             	
             }
             
-            if(c_num > 0 && e_num + c_num < 2000) {
+            if(c_num > 0 && e_num + c_num <= 1000) {
             	// 3. 불러오기
             	if(!visited[e_num + c_num][c_num]) {
             		visited[e_num + c_num][c_num] = true;

@@ -5,62 +5,51 @@ import java.util.StringTokenizer;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+
+    static boolean isStackAdd(Stack<Integer> stack, int number) {
+
+        if(stack.isEmpty()) {
+            return true;
+        } else {
+            if(stack.peek() < number) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuffer sb = new StringBuffer();
 
+        int n = Integer.parseInt(br.readLine());
+
+        boolean isSort = true;
+
         Stack<Integer> stack1 = new Stack<>();
         Stack<Integer> stack2 = new Stack<>();
         Stack<Integer> stack3 = new Stack<>();
         Stack<Integer> stack4 = new Stack<>();
 
-        int n = Integer.parseInt(br.readLine());
-
-        boolean isSort = true;
-
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             int number = Integer.parseInt(st.nextToken());
-            if(stack1.isEmpty()) {
+
+            if(isStackAdd(stack1, number)) {
                 stack1.add(number);
                 continue;
-            } else {
-                if(stack1.peek() < number) {
-                    stack1.add(number);
-                    continue;
-                }
-            }
-
-            if(stack2.isEmpty()) {
+            } else if(isStackAdd(stack2, number)) {
                 stack2.add(number);
                 continue;
-            } else {
-                if(stack2.peek() < number) {
-                    stack2.add(number);
-                    continue;
-                }
-            }
-
-            if(stack3.isEmpty()) {
+            } else if(isStackAdd(stack3, number)) {
                 stack3.add(number);
                 continue;
-            } else {
-                if(stack3.peek() < number) {
-                    stack3.add(number);
-                    continue;
-                }
-            }
-
-            if(stack4.isEmpty()) {
+            } else if(isStackAdd(stack4, number)) {
                 stack4.add(number);
                 continue;
-            } else {
-                if(stack4.peek() < number) {
-                    stack4.add(number);
-                    continue;
-                }
             }
 
             isSort = false;

@@ -7,14 +7,14 @@ class Solution {
   public int solution(String word) {
     int answer = 0;
 
-    dfs("");
+    recursion("");
 
     answer = dictionary.indexOf(word);
 
     return answer;
   }
 
-  private void dfs(String s) {
+  private void recursion(String s) {
     dictionary.add(s);
 
     if(s.length() == 5) {
@@ -22,7 +22,7 @@ class Solution {
     }
 
     for(int i = 0; i < 5; i++) {
-      dfs(s + array[i]);
+      recursion(s + array[i]);
     }
   }
 }

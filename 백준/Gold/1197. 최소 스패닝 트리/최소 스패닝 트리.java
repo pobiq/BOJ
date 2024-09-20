@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Main {
 
-  static int total;
   static int[] parent;
   static class Node implements Comparable<Node>{
     int to;
@@ -30,6 +29,8 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     StringBuffer sb = new StringBuffer();
+
+    int result = 0;
 
     StringTokenizer st = new StringTokenizer(br.readLine());
     int v = Integer.parseInt(st.nextToken());
@@ -57,12 +58,12 @@ public class Main {
       int from = find(node.from);
 
       if(!isSameParent(to,from)) {
-        total += node.value;
+        result += node.value;
         union(node.to, node.from);
       }
     }
 
-    sb.append(total);
+    sb.append(result);
     bw.write(sb.toString());
     bw.flush();
     bw.close();

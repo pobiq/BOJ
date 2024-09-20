@@ -3,21 +3,21 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
 
   static int N;
-  static int[] parent;
+  static boolean[] visited;
+  static ArrayList<Node>[] graph;
 
   static class Node implements Comparable<Node>{
-    int to;
     int from;
     int weight;
 
-    public Node(int to, int from, int weight) {
-      this.to = to;
+    public Node(int from, int weight) {
       this.from = from;
       this.weight = weight;
     }
@@ -28,40 +28,33 @@ public class Main {
     }
   }
 
+  static long result = 0;
+
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     StringBuffer sb = new StringBuffer();
 
-    long result = 0;
+
 
     N = Integer.parseInt(br.readLine());
-    parent = new int[N];
+    graph = new ArrayList[N];
+    visited = new boolean[N];
 
     for(int i = 0; i < N; i++) {
-      parent[i] = i;
+      graph[i] = new ArrayList<>();
     }
-
-    PriorityQueue<Node> pq = new PriorityQueue<>();
 
     for(int i = 0; i < N; i++) {
       StringTokenizer st = new StringTokenizer(br.readLine());
       for(int j = 0; j < N; j++) {
         int w = Integer.parseInt(st.nextToken());
-        if(j > i) {
-          pq.add(new Node(i, j, w));
-        }
+        if(i == j) continue;
+        graph[i].add(new Node(j, w));
       }
     }
 
-    while(!pq.isEmpty()) {
-      Node cur = pq.poll();
-
-      if(!isSameParent(cur.to, cur.from)) {
-        result += cur.weight;
-        union(cur.to, cur.from);
-      }
-    }
+    prim(0);
 
     sb.append(result);
     bw.write(sb.toString());
@@ -69,22 +62,21 @@ public class Main {
     bw.close();
   }
 
-  private static boolean isSameParent(int to, int from) {
-    int x = find(to);
-    int y = find(from);
-    return x == y;
-  }
+  private static void prim(int start) {
+    PriorityQueue<Node> pq = new PriorityQueue<>();
+    pq.add(new Node(start, 0));
 
-  private static int find(int number) {
-    if(parent[number] == number) return number;
-    return parent[number] = find(parent[number]);
-  }
+    while(!pq.isEmpty()) {
+      Node cur = pq.poll();
+      if(visited[cur.from]) continue;
+      visited[cur.from] = true;
+      result += cur.weight;
 
-  private static void union(int to, int from) {
-    int x = find(to);
-    int y = find(from);
-    if(x != y) {
-      parent[y] = x;
+      for(Node next : graph[cur.from]) {
+        if(!visited[next.from]) {
+          pq.add(new Node(next.from, next.weight));
+        }
+      }
     }
   }
 

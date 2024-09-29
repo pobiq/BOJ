@@ -44,10 +44,10 @@ class Solution {
 
   public int solution(String dirs) {
     HashSet<Node> hs = new HashSet<>();
-    int startX = 5;
-    int startY = 5;
-    int endX = 5;
-    int endY = 5;
+    int startX = 0;
+    int startY = 0;
+    int endX = 0;
+    int endY = 0;
 
     for(int i = 0; i < dirs.length(); i++) {
       startX = endX;
@@ -56,19 +56,19 @@ class Solution {
 
       switch (c) {
         case 'U':
-          if(startX == 0) continue;
+          if(startX == -5) continue;
           endX -= 1;
           break;
         case 'D':
-          if(startX == 10) continue;
+          if(startX == 5) continue;
           endX += 1;
           break;
         case 'R':
-          if(startY == 10) continue;
+          if(startY == 5) continue;
           endY += 1;
           break;
         case 'L':
-          if(startY == 0) continue;
+          if(startY == -5) continue;
           endY -= 1;
           break;
       }
@@ -78,7 +78,7 @@ class Solution {
 
       hs.add(new Node(startX, startY, endX, endY));
     }
-    
+
     return hs.size();
   }
 }

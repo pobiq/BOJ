@@ -44,39 +44,34 @@ class Solution {
 
   public int solution(String dirs) {
     HashSet<Node> hs = new HashSet<>();
-    int startX = 0;
-    int startY = 0;
-    int endX = 0;
-    int endY = 0;
+    int x = 0;
+    int y = 0;
 
     for(int i = 0; i < dirs.length(); i++) {
-      startX = endX;
-      startY = endY;
       char c = dirs.charAt(i);
 
       switch (c) {
         case 'U':
-          if(startX == -5) continue;
-          endX -= 1;
+          if(x == -5) continue;
+          hs.add(new Node(x-1, y, x, y));
+          x -= 1;
           break;
         case 'D':
-          if(startX == 5) continue;
-          endX += 1;
+          if(x == 5) continue;
+          hs.add(new Node(x, y, x+1, y));
+          x += 1;
           break;
         case 'R':
-          if(startY == 5) continue;
-          endY += 1;
+          if(y == 5) continue;
+          hs.add(new Node(x, y, x, y+1));
+          y += 1;
           break;
         case 'L':
-          if(startY == -5) continue;
-          endY -= 1;
+          if(y == -5) continue;
+          hs.add(new Node(x, y-1, x, y));
+          y -= 1;
           break;
       }
-
-      Node temp = new Node(endX, endY, startX, startY);
-      if(hs.contains(temp)) continue;
-
-      hs.add(new Node(startX, startY, endX, endY));
     }
 
     return hs.size();

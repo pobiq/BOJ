@@ -19,7 +19,8 @@ public class Solution {
 
   private void recursive(int n, int[] info, int[] output, int index, int k) {
     if(index == 11) {
-
+        
+        output[10] = 0;
       // 남은 화살 0점에 쏘기
       if(k < n) {
         output[10] = n - k;
@@ -32,10 +33,11 @@ public class Solution {
     if(n - k > info[index]) {
       output[index] = info[index] + 1;
       recursive(n, info, output, index+1, k + info[index] + 1);
+      output[index] = 0;
     }
 
     // 2. 안쏘고 넘어갈때
-    output[index] = 0;
+
     recursive(n, info, output, index+1, k);
 
   }
@@ -55,13 +57,13 @@ public class Solution {
     }
 
     int diff = lion_score - apeach_score;
-    
+
     if(maxDiff < diff) {
       maxDiff = diff;
       answer = output.clone();
     } else if(maxDiff == diff) {
       for(int i = 10; i >= 0; i--) {
-        if(info[i] < output[i]) {
+        if(answer[i] < output[i]) {
           answer = output.clone();
           break;
         } else if(answer[i] > output[i]) return;

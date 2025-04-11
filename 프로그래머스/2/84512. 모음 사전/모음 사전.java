@@ -1,28 +1,30 @@
 import java.util.*;
 
-class Solution {
-    List<String> dictionary = new ArrayList<>();
-  String[] array = {"A", "E", "I", "O", "U"};
+public class Solution {
+
+  static ArrayList<String> dictionary = new ArrayList<>();
+  static String[] array = {"A", "E", "I", "O", "U"};
 
   public int solution(String word) {
     int answer = 0;
 
-    recursion("");
+    dfs(0, "");
 
     answer = dictionary.indexOf(word);
 
     return answer;
   }
 
-  private void recursion(String s) {
-    dictionary.add(s);
+  private void dfs(int depth, String str) {
+    dictionary.add(str);
 
-    if(s.length() == 5) {
+    if(depth == 5) {
       return;
     }
 
     for(int i = 0; i < 5; i++) {
-      recursion(s + array[i]);
+      dfs(depth + 1, str + array[i]);
     }
   }
+
 }

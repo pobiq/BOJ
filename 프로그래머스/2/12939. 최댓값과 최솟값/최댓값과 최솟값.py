@@ -1,6 +1,6 @@
 def solution(s):
     answer = ''
-    max_number = float("inf") * -1
+    max_number = float("-inf")
     min_number = float("inf")
     
     for num in s.split(" "):

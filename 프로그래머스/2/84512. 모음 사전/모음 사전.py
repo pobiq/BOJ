@@ -1,23 +1,11 @@
-value = -1
+from itertools import product
 
 def solution(word):
-    answer = 0
-    dic = {}
-    word_list = ['A', 'E', 'I', 'O', 'U']
-    recursive("", dic, word_list)
+    words = []
+    for i in range(1, 6):
+        for c in product(['A', 'E', 'I', 'O', 'U'], repeat=i):
+            words.append(''.join(list(c)))
     
-    answer = dic[word]
-    
-    return answer
+    words.sort()
 
-def recursive(text, dic, word_list):
-    global value
-    if len(text) >= 6:
-        return
-    
-    value += 1
-    dic[text] = value
-    
-    for w in word_list:
-        recursive(text + w, dic, word_list)
-    
+    return words.index(word) + 1

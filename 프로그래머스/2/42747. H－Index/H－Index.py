@@ -1,18 +1,23 @@
 def solution(citations):
     answer = 0
-    left = 0
-    right = max(citations)
     
+    left = 0
+    right = len(citations)
     
     while left <= right:
-        mid = int(left + (right - left) / 2)
+        mid = (left + right) // 2
         
-        count = sum([1 for c in citations if c >= mid])
+        count = 0
+        
+        for citation in citations:
+            if citation >= mid:
+                count += 1
         
         if count >= mid:
-            left = mid + 1
             answer = mid
+            left = mid + 1
         else:
             right = mid - 1
-        
+            
+    
     return answer

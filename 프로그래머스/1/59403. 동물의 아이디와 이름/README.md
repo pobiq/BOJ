@@ -1,6 +1,6 @@
 # [level 1] 동물의 아이디와 이름 - 59403 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59403?language=oracle) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59403) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 09월 29일 14:16:48
+2025년 12월 25일 15:52:57
 
 ### 문제 설명
 

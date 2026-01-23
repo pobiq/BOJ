@@ -1,43 +1,45 @@
-import java.util.PriorityQueue;
+import java.util.*;
 
-public class Solution {
-
-  static int firstShuttleTime = 9*60;
-
-  public String solution(int n, int t, int m, String[] timetable) {
-    String answer = "";
-    int result = 0;
-
-    PriorityQueue<Integer> pq = new PriorityQueue<>();
-
-    for(String s : timetable) {
-      String[] temp = s.split(":");
-      pq.add(Integer.parseInt(temp[0]) * 60 + Integer.parseInt(temp[1]));
+class Solution {
+    public String solution(int n, int t, int m, String[] timetable) {
+        String answer = "";
+        
+        int suttleTime = 9 * 60 - t;
+        int count = 0;
+        int resultTime = 9 * 60;
+        int lastTime = 0;
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        for (String times : timetable) {
+            String[] timeSplit = times.split(":");
+            int clock = Integer.parseInt(timeSplit[0]);
+            int minute = Integer.parseInt(timeSplit[1]);
+            pq.add(clock + minute);
+        }
+        
+        for (int i = 0; i < n; i++) {
+            count = 0;
+            suttleTime += t;
+            while(!pq.isEmpty() && pq.peek() <= suttleTime && count < m) {
+                lastTime = pq.poll();
+                count++;
+            }
+        }
+        
+        System.out.println(count);
+        
+        if(count == m) {
+            resultTime = lastTime - 1;
+        } else {
+            resultTime = suttleTime;
+        }
+        
+        int resultClock = resultTime / 60;
+        int resultMinute = resultTime % 60;
+        
+        answer = String.format("%02d", resultClock) + ":" + String.format("%02d", resultMinute);
+        
+        return answer;
     }
-
-    int shuttleTime = firstShuttleTime - t;
-    int count = 0;
-    int lastTime = 0;
-
-    for(int i = 0; i < n; i++) {
-      shuttleTime += t;
-      count = 0;
-      while(!pq.isEmpty() && pq.peek() <= shuttleTime && count < m) {
-        lastTime = pq.poll();
-        count++;
-      }
-    }
-
-    if(count == m) {
-      result = lastTime - 1;
-    } else {
-      result = shuttleTime;
-    }
-
-    answer = String.format("%02d", result / 60)
-        + ":" + String.format("%02d", result % 60);
-
-    return answer;
-  }
-
 }

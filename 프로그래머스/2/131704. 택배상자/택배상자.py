@@ -3,13 +3,12 @@ from collections import deque
 def solution(order):
     
     answer = 0
-    sub_container = []
     
     start = order[0]
     
     n = len(order)
     
-    sub_container = deque(range(0, start+1))
+    sub_container = deque(range(0, start + 1))
     container = deque(range(start+1, n+1))
     
     for data in order:
@@ -17,14 +16,13 @@ def solution(order):
         while container and container[0] <= data:
             sub_container.append(container.popleft())
         
-        if sub_container and sub_container[-1] == data:
-            sub_container.pop()
+        if container and data == container[0]:
             answer += 1
-        elif container and container[0] == data:
             container.popleft()
+        elif sub_container and data == sub_container[-1]:
             answer += 1
+            sub_container.pop()
         else:
             break
-    
     
     return answer
